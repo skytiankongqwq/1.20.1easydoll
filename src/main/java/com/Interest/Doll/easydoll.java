@@ -62,6 +62,7 @@ public class easydoll {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         ModBlockEntities.register(modEventBus);
+        modEventBus.addListener(this::addCreative);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
@@ -88,6 +89,13 @@ public class easydoll {
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+    }
+
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            // 将你的玩偶物品添加到该分类中
+            event.accept(PLUSHIE_ITEM);
+        }
     }
 
 
